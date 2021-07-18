@@ -1,4 +1,4 @@
-module github.com/sumelms/microservice-learning
+module github.com/sumelms/microservice-activity
 
 go 1.14
 

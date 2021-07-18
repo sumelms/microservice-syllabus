@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   microservice:
-    image: sumelms/microservice-learning
+    image: sumelms/microservice-activity
     ports:
       - "8080:8080"
     deploy:
@@ -23,10 +23,10 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - microservice_learning_postgres:/var/lib/postgresql/data
+      - microservice_activity_postgres:/var/lib/postgresql/data
     deploy:
       restart_policy:
         condition: on-failure
 
 volumes:
-  microservice_learning_postgres:
+  microservice_activity_postgres:
