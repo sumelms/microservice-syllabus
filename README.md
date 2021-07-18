@@ -3,13 +3,13 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.com/sumelms/microservice-learning">
-    <img alt="Travis" src="https://travis-ci.com/sumelms/microservice-learning.svg?branch=main">
+  <a href="https://travis-ci.com/sumelms/microservice-activity">
+    <img alt="Travis" src="https://travis-ci.com/sumelms/microservice-activity.svg?branch=main">
   </a>  
-  <a href="https://codecov.io/gh/sumelms/microservice-learning">
-    <img src="https://codecov.io/gh/sumelms/backend/microservice-learning/main/graph/badge.svg?token=8E92BS3SR9" />
+  <a href="https://codecov.io/gh/sumelms/microservice-activity">
+    <img src="https://codecov.io/gh/sumelms/backend/microservice-activity/main/graph/badge.svg?token=8E92BS3SR9" />
   </a>
-  <img alt="GitHub" src="https://img.shields.io/github/license/sumelms/microservice-learning">
+  <img alt="GitHub" src="https://img.shields.io/github/license/sumelms/microservice-activity">
   <a href="https://discord.gg/Yh9q9cd">
     <img alt="Discord" src="https://img.shields.io/discord/726500188021063682">
   </a>
@@ -17,7 +17,7 @@
 
 ## About Sumé LMS
 
-> Note: This repository contains the **learning microservice** of the Sumé LMS. If you are looking for more information
+> Note: This repository contains the **activity microservice** of the Sumé LMS. If you are looking for more information
 > about the application, we strongly recommend you to [check the documentation](https://www.sumelms.com/docs).
 
 Sumé LMS is a modern and open-source learning management system that uses modern technologies to deliver performance
@@ -56,7 +56,7 @@ and scalability to your learning environment.
 Clone the repository
 
 ```bash
-$ git clone [git@github.com](mailto:git@github.com):sumelms/microservice-learning.git
+$ git clone [git@github.com](mailto:git@github.com):sumelms/microservice-activity.git
 ```
 
 Access the project folder, and download the Go dependencies
@@ -164,7 +164,7 @@ SUMELMS_DATABASE_HOST = "localhost"
 SUMELMS_DATABASE_PORT = 5432
 SUMELMS_DATABASE_USER = nil
 SUMELMS_DATABASE_PASSWORD = nil
-SUMELMS_DATABASE_DATABASE = "sumelms_learning"
+SUMELMS_DATABASE_DATABASE = "sumelms_activity"
 ```
 
 > We are using [configuro](https://github.com/sherifabdlnaby/configuro) to manage the configuration, so the precedence
