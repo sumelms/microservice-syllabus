@@ -9,6 +9,7 @@ type Activity struct {
 	ContentID   string
 	ContentType string
 	CreatedAt   int64
-	UpdatedAt   *int64
+	UpdatedAt   int64
+	DeletedAt   *int64
 	PublishedAt *int64
 }
