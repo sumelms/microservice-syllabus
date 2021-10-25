@@ -5,5 +5,5 @@ type Repository interface {
 	Find(string) (Activity, error)
 	Update(*Activity) (Activity, error)
 	Delete(string) error
-	List() ([]Activity, error)
+	List(map[string]interface{}) ([]Activity, error)
 }

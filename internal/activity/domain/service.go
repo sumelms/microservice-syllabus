@@ -8,7 +8,7 @@ import (
 )
 
 type ServiceInterface interface {
-	ListActivity(context.Context) ([]Activity, error)
+	ListActivity(context.Context, map[string]interface{}) ([]Activity, error)
 	CreateActivity(context.Context, *Activity) (Activity, error)
 	FindActivity(context.Context, string) (Activity, error)
 	UpdateActivity(context.Context, *Activity) (Activity, error)
@@ -27,8 +27,8 @@ func NewService(repo Repository, logger log.Logger) *Service {
 	}
 }
 
-func (s *Service) ListActivity(_ context.Context) ([]Activity, error) {
-	cs, err := s.repo.List()
+func (s *Service) ListActivity(_ context.Context, filters map[string]interface{}) ([]Activity, error) {
+	cs, err := s.repo.List(filters)
 	if err != nil {
 		return []Activity{}, fmt.Errorf("Service didn't found any activity: %w", err)
 	}

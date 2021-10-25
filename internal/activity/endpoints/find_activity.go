@@ -19,9 +19,9 @@ type findActivityRequest struct {
 type findActivityResponse struct {
 	UUID        string    `json:"uuid"`
 	Title       string    `json:"title"`
-	Subtitle    string    `json:"subtitle"`
-	Excerpt     string    `json:"excerpt"`
 	Description string    `json:"description"`
+	ContentID   string    `json:"content_id"`
+	ContentType string    `json:"content_type"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
@@ -50,9 +50,9 @@ func makeFindActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 		return &findActivityResponse{
 			UUID:        a.UUID,
 			Title:       a.Title,
-			Subtitle:    a.Subtitle,
-			Excerpt:     a.Excerpt,
 			Description: a.Description,
+			ContentID:   a.ContentID,
+			ContentType: a.ContentType,
 		}, nil
 	}
 }

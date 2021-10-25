@@ -17,17 +17,17 @@ import (
 type updateActivityRequest struct {
 	UUID        string `json:"uuid" validate:"required"`
 	Title       string `json:"title" validate:"required,max=100"`
-	Subtitle    string `json:"subtitle" validate:"required,max=100"`
-	Excerpt     string `json:"excerpt" validate:"required,max=140"`
 	Description string `json:"description" validate:"required,max=255"`
+	ContentID   string `json:"content_id" validate:"required"`
+	ContentType string `json:"content_type" validate:"required,max=140"`
 }
 
 type updateActivityResponse struct {
 	UUID        string    `json:"uuid"`
 	Title       string    `json:"title"`
-	Subtitle    string    `json:"subtitle"`
-	Excerpt     string    `json:"excerpt"`
 	Description string    `json:"description"`
+	ContentID   string    `json:"content_id"`
+	ContentType string    `json:"content_type"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
@@ -54,8 +54,11 @@ func makeUpdateActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 		}
 
 		a := domain.Activity{}
-		data, _ := json.Marshal(req)
-		err := json.Unmarshal(data, &a)
+		data, err := json.Marshal(req)
+		if err != nil {
+			return nil, err
+		}
+		err = json.Unmarshal(data, &a)
 		if err != nil {
 			return nil, err
 		}
@@ -68,9 +71,9 @@ func makeUpdateActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 		return updateActivityResponse{
 			UUID:        updated.UUID,
 			Title:       updated.Title,
-			Subtitle:    updated.Subtitle,
-			Excerpt:     updated.Excerpt,
 			Description: updated.Description,
+			ContentID:   updated.ContentID,
+			ContentType: updated.ContentType,
 		}, nil
 	}
 }

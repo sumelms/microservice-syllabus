@@ -8,9 +8,9 @@ import (
 func toDBModel(entity *domain.Activity) Activity {
 	activity := Activity{
 		Title:       entity.Title,
-		Subtitle:    entity.Subtitle,
-		Excerpt:     entity.Excerpt,
 		Description: entity.Description,
+		ContentID:   uuid.MustParse(entity.ContentID),
+		ContentType: entity.ContentType,
 	}
 
 	if len(entity.UUID) > 0 {
@@ -35,9 +35,9 @@ func toDomainModel(entity *Activity) domain.Activity {
 		ID:          entity.ID,
 		UUID:        entity.UUID.String(),
 		Title:       entity.Title,
-		Subtitle:    entity.Subtitle,
-		Excerpt:     entity.Excerpt,
 		Description: entity.Description,
+		ContentID:   entity.ContentID.String(),
+		ContentType: entity.ContentType,
 		CreatedAt:   entity.CreatedAt,
 		UpdatedAt:   entity.UpdatedAt,
 		DeletedAt:   entity.DeletedAt,

@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	whereActivityUUID = "uuid = ?"
+	whereActivityUUID = "UUID = ?"
 )
 
 // Repository struct
@@ -19,7 +19,7 @@ type Repository struct {
 	logger log.Logger
 }
 
-// NewRepository creates a new profile repository
+// NewRepository creates a new activity repository
 func NewRepository(db *gorm.DB, logger log.Logger) *Repository {
 	db.AutoMigrate(&Activity{})
 
@@ -30,10 +30,10 @@ func NewRepository(db *gorm.DB, logger log.Logger) *Repository {
 }
 
 // List activities
-func (r *Repository) List() ([]domain.Activity, error) {
+func (r *Repository) List(filters map[string]interface{}) ([]domain.Activity, error) {
 	var activities []Activity
 
-	query := r.db.Find(&activities)
+	query := r.db.Find(&activities, filters)
 	if query.RecordNotFound() {
 		return []domain.Activity{}, nil
 	}
@@ -49,7 +49,7 @@ func (r *Repository) List() ([]domain.Activity, error) {
 	return list, nil
 }
 
-// Create creates a activity
+// Create creates an activity
 func (r *Repository) Create(activity *domain.Activity) (domain.Activity, error) {
 	entity := toDBModel(activity)
 
@@ -59,7 +59,7 @@ func (r *Repository) Create(activity *domain.Activity) (domain.Activity, error) 
 	return toDomainModel(&entity), nil
 }
 
-// Find get a activity by its ID
+// Find get an activity by its ID
 func (r *Repository) Find(id string) (domain.Activity, error) {
 	var activity Activity
 
@@ -93,7 +93,7 @@ func (r *Repository) Update(c *domain.Activity) (domain.Activity, error) {
 	return *c, nil
 }
 
-// Delete a activity by its ID
+// Delete an activity by its ID
 func (r *Repository) Delete(id string) error {
 	query := r.db.Where(whereActivityUUID, id).Delete(&Activity{})
 

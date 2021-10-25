@@ -15,17 +15,17 @@ import (
 
 type createActivityRequest struct {
 	Title       string `json:"title" validate:"required,max=100"`
-	Subtitle    string `json:"subtitle" validate:"required,max=100"`
-	Excerpt     string `json:"excerpt" validate:"required,max=140"`
 	Description string `json:"description" validate:"required,max=255"`
+	ContentID   string `json:"content_id" validate:"required"`
+	ContentType string `json:"content_type" validate:"required,max=140"`
 }
 
 type createActivityResponse struct {
 	UUID        string    `json:"uuid"`
 	Title       string    `json:"title"`
-	Subtitle    string    `json:"subtitle"`
-	Excerpt     string    `json:"excerpt"`
 	Description string    `json:"description"`
+	ContentID   string    `json:"content_id"`
+	ContentType string    `json:"content_type"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
@@ -66,9 +66,9 @@ func makeCreateActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 		return createActivityResponse{
 			UUID:        created.UUID,
 			Title:       created.Title,
-			Subtitle:    created.Subtitle,
-			Excerpt:     created.Excerpt,
 			Description: created.Description,
+			ContentID:   created.ContentID,
+			ContentType: created.ContentType,
 			CreatedAt:   created.CreatedAt,
 			UpdatedAt:   created.UpdatedAt,
 		}, err

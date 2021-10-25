@@ -12,9 +12,9 @@ type Activity struct {
 	gorm.Model
 	UUID        uuid.UUID `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
 	Title       string    `gorm:"size:100"`
-	Subtitle    string    `gorm:"size:100"`
-	Excerpt     string    `gorm:"size:144"`
 	Description string    `gorm:"size:255"`
+	ContentID   uuid.UUID `gorm:"type:uuid"`
+	ContentType string    `gorm:"size:140"`
 }
 
 func (c *Activity) BeforeCreate(scope *gorm.Scope) error {
