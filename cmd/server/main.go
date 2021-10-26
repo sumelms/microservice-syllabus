@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/sumelms/microservice-activity/internal/activitylog"
 	"net/http"
 	"os"
 	"os/signal"
@@ -63,6 +64,7 @@ func main() {
 
 		// Initializing the services
 		activity.NewHTTPService(router, db, httpLogger)
+		activitylog.NewHTTPService(router, db, httpLogger)
 
 		// Handle the router
 		srv.Handle("/", router)
