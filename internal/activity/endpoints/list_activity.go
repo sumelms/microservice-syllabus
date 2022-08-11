@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 	kithttp "github.com/go-kit/kit/transport/http"
-	"github.com/sumelms/microservice-activity/internal/activity/domain"
+	"github.com/sumelms/microservice-syllabus/internal/activity/domain"
 )
 
 type listActivityRequest struct {
