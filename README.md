@@ -4,13 +4,19 @@
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.com/sumelms/microservice-activity">
-    <img alt="Travis" src="https://travis-ci.com/sumelms/microservice-activity.svg?branch=main">
-  </a>  
-  <a href="https://codecov.io/gh/sumelms/microservice-activity">
-    <img alt="Codeconv" src="https://codecov.io/gh/sumelms/backend/microservice-activity/main/graph/badge.svg?token=8E92BS3SR9" />
+  <a href="https://goreportcard.com/report/github.com/sumelms/microservice-syllabus">
+    <img alt="goreportcard" src="https://goreportcard.com/badge/github.com/sumelms/microservice-syllabus" />
   </a>
-  <img alt="GitHub" src="https://img.shields.io/github/license/sumelms/microservice-activity">
+  <a href="https://github.com/sumelms/microservice-syllabus/actions/workflows/main.yaml">
+    <img alt="github action" src="https://github.com/sumelms/microservice-syllabus/actions/workflows/main.yaml/badge.svg" />
+  </a>
+  <a href="https://travis-ci.com/sumelms/microservice-syllabus">
+    <img alt="Travis" src="https://travis-ci.com/sumelms/microservice-syllabus.svg?branch=main">
+  </a>  
+  <a href="https://codecov.io/gh/sumelms/microservice-syllabus">
+    <img alt="Codeconv" src="https://codecov.io/gh/sumelms/backend/microservice-syllabus/main/graph/badge.svg?token=8E92BS3SR9" />
+  </a>
+  <img alt="GitHub" src="https://img.shields.io/github/license/sumelms/microservice-syllabus">
   <a href="https://discord.gg/Yh9q9cd">
     <img alt="Discord" src="https://img.shields.io/discord/726500188021063682">
   </a>
@@ -18,7 +24,7 @@
 
 ## About Sumé LMS
 
-> Note: This repository contains the **activity microservice** of the Sumé LMS. If you are looking for more information
+> Note: This repository contains the **syllabus microservice** of the Sumé LMS. If you are looking for more information
 > about the application, we strongly recommend you to [check the documentation](https://www.sumelms.com/docs).
 
 Sumé LMS is a modern and open-source learning management system that uses modern technologies to deliver performance
@@ -44,13 +50,13 @@ and scalability to your learning environment.
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Code of Conduct](#code-of-conduct)
-- [Team](#team)
+- [Contributors](#contributors)
 - [Support](#support)
 - [License](#license)
 
 ## Prerequisites
 
-- Go >= 1.14.6
+- Go >= 1.19
 - PostgreSQL >= 9.5 (with `uuid-ossp` extension)
 
 ## Prepare
@@ -58,7 +64,7 @@ and scalability to your learning environment.
 Clone the repository
 
 ```bash
-$ git clone [git@github.com](mailto:git@github.com):sumelms/microservice-activity.git
+$ git clone git@github.com:sumelms/microservice-syllabus.git
 ```
 
 Access the project folder, and download the Go dependencies
@@ -96,6 +102,20 @@ $ make container-build
 ```
 
 If everything works, you can now [run the microservice using the container image](#running).
+
+### Local database
+
+You can have your local database running the following command:
+
+```bash
+$ docker-compose up -d postgres
+```
+
+And then you could run the migrations using
+
+```bash
+$ make migrations-up
+```
 
 ## Running
 
@@ -149,7 +169,7 @@ SUMELMS_DATABASE_HOST = "localhost"
 SUMELMS_DATABASE_PORT = 5432
 SUMELMS_DATABASE_USER = nil
 SUMELMS_DATABASE_PASSWORD = nil
-SUMELMS_DATABASE_DATABASE = "sumelms_activity"
+SUMELMS_DATABASE_DATABASE = "sumelms_syllabus"
 ```
 
 > We are using [configuro](https://github.com/sherifabdlnaby/configuro) to manage the configuration, so the precedence
@@ -169,7 +189,7 @@ The complete Sumé LMS documentation can be found in our [official website](http
 
 ### API
 
-This project uses [Swagger](https://swagger.io/) to generate the API documentation and API mockup, the files can be found  `swagger` directory. 
+This project uses [Swagger](https://swagger.io/) to generate the API documentation and API mockup, the files can be found  `swagger` directory.
 
 Sometimes, a microservice can cover more than one domain boundary, in this case, the API scheme should be stored in the same directory indicated above, but following the following filename convention: `<domain-name>-api.yaml`
 
@@ -184,16 +204,13 @@ all make sure to read our [Contributor Guideline](https://sumelms.com/docs/contr
 
 Would you like to contribute and participate in our communities? Please read our [Code of Conduct](https://sumelms.com/docs/conduct).
 
-## Team
+## Contributors
 
-### Core
+<a href="https://github.com/sumelms/microservice-syllabus/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=sumelms/microservice-syllabus" />
+</a>
 
-- Ricardo Lüders (@rluders)
-- Ariane Rocha (@arianerocha)
-
-### Contributors
-
-...
+Made with [contrib.rocks](https://contrib.rocks).
 
 ## Support
 
@@ -205,8 +222,7 @@ find help and get in touch with the community.
 ### Bugs or feature requests
 
 If you found a bug or have a feature request, the best way to do
-it is [opening an issue](https://github.com/sumelms/microservice-activity/issues).
-
+it is [opening an issue](https://github.com/sumelms/microservice-syllabus/issues).
 
 ## License
 
