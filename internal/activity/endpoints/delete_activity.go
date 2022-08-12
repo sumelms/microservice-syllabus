@@ -7,12 +7,14 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 	kithttp "github.com/go-kit/kit/transport/http"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
+
 	"github.com/sumelms/microservice-syllabus/internal/activity/domain"
 )
 
 type deleteActivityRequest struct {
-	UUID string `json:"uuid" validate:"required"`
+	UUID uuid.UUID `json:"uuid" validate:"required"`
 }
 
 func NewDeleteActivityHandler(s domain.ServiceInterface, opts ...kithttp.ServerOption) *kithttp.Server {
@@ -47,7 +49,9 @@ func decodeDeleteActivityRequest(_ context.Context, r *http.Request) (interface{
 		return nil, fmt.Errorf("invalid argument")
 	}
 
-	return deleteActivityRequest{UUID: id}, nil
+	uid := uuid.MustParse(id)
+
+	return deleteActivityRequest{UUID: uid}, nil
 }
 
 func encodeDeleteActivityResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {

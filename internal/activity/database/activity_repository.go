@@ -64,7 +64,7 @@ func (r activityRepository) CreateActivity(c *domain.Activity) error {
 		return errors.NewErrorf(errors.ErrCodeUnknown, "prepared statement %s not found", createActivity)
 	}
 
-	if err := stmt.Get(c, c.Code, c.Name, c.Underline, c.Image, c.ImageCover, c.Excerpt, c.Description); err != nil {
+	if err := stmt.Get(c, c.Name, c.Description, c.ContentID, c.ContentType); err != nil {
 		return errors.WrapErrorf(err, errors.ErrCodeUnknown, "error creating activity")
 	}
 	return nil
@@ -77,7 +77,7 @@ func (r activityRepository) UpdateActivity(c *domain.Activity) error {
 		return errors.NewErrorf(errors.ErrCodeUnknown, "prepared statement %s not found", updateActivity)
 	}
 
-	if err := stmt.Get(c, c.Code, c.Name, c.Underline, c.Image, c.ImageCover, c.Excerpt, c.Description, c.UUID); err != nil {
+	if err := stmt.Get(c, c.Name, c.Description, c.ContentID, c.ContentType, c.UUID); err != nil {
 		return errors.WrapErrorf(err, errors.ErrCodeUnknown, "error updating activity")
 	}
 	return nil
