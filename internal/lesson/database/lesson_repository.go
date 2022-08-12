@@ -64,7 +64,7 @@ func (r lessonRepository) CreateLesson(c *domain.Lesson) error {
 		return errors.NewErrorf(errors.ErrCodeUnknown, "prepared statement %s not found", createLesson)
 	}
 
-	if err := stmt.Get(c, c.Code, c.Name, c.Underline, c.Image, c.ImageCover, c.Excerpt, c.Description); err != nil {
+	if err := stmt.Get(c, c.Name, c.Description, c.Objective, c.Type, c.Module); err != nil {
 		return errors.WrapErrorf(err, errors.ErrCodeUnknown, "error creating lesson")
 	}
 	return nil
@@ -77,7 +77,7 @@ func (r lessonRepository) UpdateLesson(c *domain.Lesson) error {
 		return errors.NewErrorf(errors.ErrCodeUnknown, "prepared statement %s not found", updateLesson)
 	}
 
-	if err := stmt.Get(c, c.Code, c.Name, c.Underline, c.Image, c.ImageCover, c.Excerpt, c.Description, c.UUID); err != nil {
+	if err := stmt.Get(c, c.Name, c.Description, c.Objective, c.Type, c.Module, c.UUID); err != nil {
 		return errors.WrapErrorf(err, errors.ErrCodeUnknown, "error updating lesson")
 	}
 	return nil

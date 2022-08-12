@@ -35,10 +35,10 @@ func NewService(cfgs ...serviceConfiguration) (*Service, error) {
 	return svc, nil
 }
 
-// WithCourseRepository injects the course repository to the domain Service
-func WithCourseRepository(cr LessonRepository) serviceConfiguration {
+// WithLessonRepository injects the course repository to the domain Service
+func WithLessonRepository(lr LessonRepository) serviceConfiguration {
 	return func(svc *Service) error {
-		svc.lessons = cr
+		svc.lessons = lr
 		return nil
 	}
 }

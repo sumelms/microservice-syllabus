@@ -21,11 +21,10 @@ type findLessonRequest struct {
 type findLessonResponse struct {
 	UUID        uuid.UUID `json:"uuid"`
 	Name        string    `json:"name"`
-	Underline   string    `json:"underline"`
-	Image       string    `json:"image,omitempty"`
-	ImageCover  string    `json:"image_cover,omitempty"`
-	Excerpt     string    `json:"excerpt"`
 	Description string    `json:"description,omitempty"`
+	Objective   string    `json:"objective,omitempty"`
+	Type        string    `json:"type"`
+	Module      string    `json:"module,omitempty"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
@@ -54,11 +53,12 @@ func makeFindLessonEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 		return &findLessonResponse{
 			UUID:        c.UUID,
 			Name:        c.Name,
-			Underline:   c.Underline,
-			Image:       c.Image,
-			ImageCover:  c.ImageCover,
-			Excerpt:     c.Excerpt,
 			Description: c.Description,
+			Objective:   c.Objective,
+			Type:        c.Type,
+			Module:      c.Module,
+			CreatedAt:   c.CreatedAt,
+			UpdatedAt:   c.UpdatedAt,
 		}, nil
 	}
 }

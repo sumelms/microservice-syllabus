@@ -36,11 +36,10 @@ func makeListLessonEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 			list = append(list, findLessonResponse{
 				UUID:        c.UUID,
 				Name:        c.Name,
-				Underline:   c.Underline,
-				Image:       c.Image,
-				ImageCover:  c.ImageCover,
-				Excerpt:     c.Excerpt,
 				Description: c.Description,
+				Objective:   c.Objective,
+				Type:        c.Type,
+				Module:      c.Module,
 				CreatedAt:   c.CreatedAt,
 				UpdatedAt:   c.UpdatedAt,
 			})

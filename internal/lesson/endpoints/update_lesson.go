@@ -20,21 +20,19 @@ import (
 type updateLessonRequest struct {
 	UUID        uuid.UUID `json:"uuid" validate:"required"`
 	Name        string    `json:"name" validate:"required,max=100"`
-	Underline   string    `json:"underline" validate:"required,max=100"`
-	Image       string    `json:"image"`
-	ImageCover  string    `json:"image_cover"`
-	Excerpt     string    `json:"excerpt" validate:"required,max=140"`
-	Description string    `json:"description" validate:"required,max=255"`
+	Description string    `json:"description" validate:"max=255"`
+	Objective   string    `json:"objective" validate:"max=100"`
+	Type        string    `json:"type" validate:"required,max=40"`
+	Module      string    `json:"module" validate:"max=40"`
 }
 
 type updateLessonResponse struct {
 	UUID        uuid.UUID `json:"uuid"`
 	Name        string    `json:"name"`
-	Underline   string    `json:"underline"`
-	Image       string    `json:"image"`
-	ImageCover  string    `json:"image_cover"`
-	Excerpt     string    `json:"excerpt"`
-	Description string    `json:"description"`
+	Description string    `json:"description,omitempty"`
+	Objective   string    `json:"objective,omitempty"`
+	Type        string    `json:"type"`
+	Module      string    `json:"module,omitempty"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
@@ -73,11 +71,10 @@ func makeUpdateLessonEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 		return updateLessonResponse{
 			UUID:        c.UUID,
 			Name:        c.Name,
-			Underline:   c.Underline,
-			Image:       c.Image,
-			ImageCover:  c.ImageCover,
-			Excerpt:     c.Excerpt,
 			Description: c.Description,
+			Objective:   c.Objective,
+			Type:        c.Type,
+			Module:      c.Module,
 		}, nil
 	}
 }
