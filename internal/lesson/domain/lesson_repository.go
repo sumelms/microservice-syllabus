@@ -8,4 +8,6 @@ type LessonRepository interface {
 	CreateLesson(lesson *Lesson) error
 	UpdateLesson(lesson *Lesson) error
 	DeleteLesson(id uuid.UUID) error
+	AddActivity(lessonActivity *LessonActivity) error
+	RemoveActivity(lessonID, activityID uuid.UUID) error
 }

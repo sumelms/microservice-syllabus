@@ -1,11 +1,13 @@
 package database
 
 const (
-	createLesson = "create lesson"
-	deleteLesson = "delete lesson by uuid"
-	getLesson    = "get lesson by uuid"
-	listLesson   = "list lesson"
-	updateLesson = "update lesson by uuid"
+	createLesson   = "create lesson"
+	deleteLesson   = "delete lesson by uuid"
+	getLesson      = "get lesson by uuid"
+	listLesson     = "list lesson"
+	updateLesson   = "update lesson by uuid"
+	addActivity    = "add activity to lesson"
+	removeActivity = "remove activity from lesson"
 )
 
 func queriesLesson() map[string]string {
@@ -19,5 +21,7 @@ func queriesLesson() map[string]string {
 		updateLesson: `UPDATE lessons 
 			SET name = :name, description = :description, objective = :objective, type = :type, module = :module 
 			WHERE uuid = :uuid RETURNING *`,
+		addActivity:    "INSERT INTO lesson_activities (lesson_id, activity_id) VALUES (:lesson_id, :activity_id)",
+		removeActivity: "DELETE FROM lesson_activities WHERE lesson_id = :lesson_id AND activity_id = :activity_id",
 	}
 }

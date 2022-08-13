@@ -14,6 +14,8 @@ type ServiceInterface interface {
 	CreateLesson(ctx context.Context, c *Lesson) error
 	UpdateLesson(ctx context.Context, c *Lesson) error
 	DeleteLesson(ctx context.Context, id uuid.UUID) error
+	AddActivity(ctx context.Context, lessonActivity *LessonActivity) error
+	RemoveActivity(ctx context.Context, lessonID, activityID uuid.UUID) error
 }
 
 type serviceConfiguration func(svc *Service) error

@@ -43,3 +43,17 @@ func (s *Service) DeleteLesson(_ context.Context, id uuid.UUID) error {
 	}
 	return nil
 }
+
+func (s *Service) AddActivity(ctx context.Context, la *LessonActivity) error {
+	if err := s.lessons.AddActivity(la); err != nil {
+		return fmt.Errorf("service can't add activity to lesson: %w", err)
+	}
+	return nil
+}
+
+func (s *Service) RemoveActivity(_ context.Context, lessonID, activityID uuid.UUID) error {
+	if err := s.lessons.RemoveActivity(lessonID, activityID); err != nil {
+		return fmt.Errorf("service can't remove activity from lesson: %w", err)
+	}
+	return nil
+}

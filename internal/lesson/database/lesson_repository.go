@@ -95,3 +95,27 @@ func (r lessonRepository) DeleteLesson(id uuid.UUID) error {
 	}
 	return nil
 }
+
+func (r lessonRepository) AddActivity(la *domain.LessonActivity) error {
+	stmt, ok := r.statements[addActivity]
+	if !ok {
+		return errors.NewErrorf(errors.ErrCodeUnknown, "prepared statement %s not found", addActivity)
+	}
+
+	if _, err := stmt.Exec(la); err != nil {
+		return errors.WrapErrorf(err, errors.ErrCodeUnknown, "error adding activity to lesson")
+	}
+	return nil
+}
+
+func (r lessonRepository) RemoveActivity(lessonID, activityID uuid.UUID) error {
+	stmt, ok := r.statements[removeActivity]
+	if !ok {
+		return errors.NewErrorf(errors.ErrCodeUnknown, "prepare statement %s not found", removeActivity)
+	}
+
+	if _, err := stmt.Exec(lessonID, activityID); err != nil {
+		return errors.WrapErrorf(err, errors.ErrCodeUnknown, "error removing activity from lesson")
+	}
+	return nil
+}
