@@ -5,12 +5,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/jinzhu/gorm"
+	"github.com/jmoiron/sqlx"
 
-	activity "github.com/sumelms/microservice-activity/internal/activity/database"
-	"github.com/sumelms/microservice-activity/pkg/config"
-	database "github.com/sumelms/microservice-activity/pkg/database/gorm"
-	"github.com/sumelms/microservice-activity/pkg/seed"
+	"github.com/sumelms/microservice-syllabus/pkg/config"
+	database "github.com/sumelms/microservice-syllabus/pkg/database/postgres"
+	"github.com/sumelms/microservice-syllabus/pkg/seed"
 )
 
 func main() {
@@ -24,14 +23,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("Unable to connect to database: %s", err)
 	}
-	defer func(db *gorm.DB) {
+	defer func(db *sqlx.DB) {
 		_ = db.Close()
 	}(db)
 
 	for _, s := range allSeeds() {
 		fmt.Printf("Executing seed '%s'...\n", s.Name)
 		if err := s.Run(db); err != nil {
-			log.Fatalf("Running seed '%s', failed with error: %s", s.Name, err) // nolint: gocritic
+			log.Fatalf("Running seed '%s', failed with error: %s", s.Name, err) //nolint: gocritic
 		}
 	}
 }
@@ -52,7 +51,5 @@ func loadConfig() (*config.Config, error) {
 }
 
 func allSeeds() []seed.Seed {
-	return []seed.Seed{
-		activity.Activities(),
-	}
+	return []seed.Seed{}
 }

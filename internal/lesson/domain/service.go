@@ -9,18 +9,20 @@ import (
 
 // ServiceInterface defines the domains Service interface
 type ServiceInterface interface {
-	Activity(ctx context.Context, id uuid.UUID) (Activity, error)
-	Activities(ctx context.Context) ([]Activity, error)
-	CreateActivity(ctx context.Context, activity *Activity) error
-	UpdateActivity(ctx context.Context, activity *Activity) error
-	DeleteActivity(ctx context.Context, id uuid.UUID) error
+	Lesson(ctx context.Context, id uuid.UUID) (Lesson, error)
+	Lessons(ctx context.Context) ([]Lesson, error)
+	CreateLesson(ctx context.Context, c *Lesson) error
+	UpdateLesson(ctx context.Context, c *Lesson) error
+	DeleteLesson(ctx context.Context, id uuid.UUID) error
+	AddActivity(ctx context.Context, lessonActivity *LessonActivity) error
+	RemoveActivity(ctx context.Context, lessonID, activityID uuid.UUID) error
 }
 
 type serviceConfiguration func(svc *Service) error
 
 type Service struct {
-	activities ActivityRepository
-	logger     log.Logger
+	lessons LessonRepository
+	logger  log.Logger
 }
 
 // NewService creates a new domain Service instance
@@ -35,10 +37,10 @@ func NewService(cfgs ...serviceConfiguration) (*Service, error) {
 	return svc, nil
 }
 
-// WithActivityRepository injects the course repository to the domain Service
-func WithActivityRepository(ar ActivityRepository) serviceConfiguration {
+// WithLessonRepository injects the course repository to the domain Service
+func WithLessonRepository(lr LessonRepository) serviceConfiguration {
 	return func(svc *Service) error {
-		svc.activities = ar
+		svc.lessons = lr
 		return nil
 	}
 }

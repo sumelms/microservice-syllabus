@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	_ "github.com/sumelms/microservice-activity/tests"
+	_ "github.com/sumelms/microservice-syllabus/tests"
 )
 
 func TestNewConfig(t *testing.T) {

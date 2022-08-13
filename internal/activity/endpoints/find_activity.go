@@ -8,19 +8,21 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 	kithttp "github.com/go-kit/kit/transport/http"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
-	"github.com/sumelms/microservice-activity/internal/activity/domain"
+
+	"github.com/sumelms/microservice-syllabus/internal/activity/domain"
 )
 
 type findActivityRequest struct {
-	UUID string `json:"uuid"`
+	UUID uuid.UUID `json:"uuid"`
 }
 
 type findActivityResponse struct {
-	UUID        string    `json:"uuid"`
-	Title       string    `json:"title"`
+	UUID        uuid.UUID `json:"uuid"`
+	Name        string    `json:"name"`
 	Description string    `json:"description"`
-	ContentID   string    `json:"content_id"`
+	ContentID   uuid.UUID `json:"content_id"`
 	ContentType string    `json:"content_type"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
@@ -42,14 +44,14 @@ func makeFindActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 			return nil, fmt.Errorf("invalid argument")
 		}
 
-		a, err := s.FindActivity(ctx, req.UUID)
+		a, err := s.Activity(ctx, req.UUID)
 		if err != nil {
 			return nil, err
 		}
 
 		return &findActivityResponse{
 			UUID:        a.UUID,
-			Title:       a.Title,
+			Name:        a.Name,
 			Description: a.Description,
 			ContentID:   a.ContentID,
 			ContentType: a.ContentType,
@@ -64,7 +66,9 @@ func decodeFindActivityRequest(_ context.Context, r *http.Request) (interface{},
 		return nil, fmt.Errorf("invalid argument")
 	}
 
-	return findActivityRequest{UUID: id}, nil
+	uid := uuid.MustParse(id)
+
+	return findActivityRequest{UUID: uid}, nil
 }
 
 func encodeFindActivityResponse(ctx context.Context, w http.ResponseWriter, response interface{}) error {

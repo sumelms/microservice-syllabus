@@ -9,22 +9,24 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 	kithttp "github.com/go-kit/kit/transport/http"
-	"github.com/sumelms/microservice-activity/internal/activity/domain"
-	"github.com/sumelms/microservice-activity/pkg/validator"
+	"github.com/google/uuid"
+
+	"github.com/sumelms/microservice-syllabus/internal/activity/domain"
+	"github.com/sumelms/microservice-syllabus/pkg/validator"
 )
 
 type createActivityRequest struct {
-	Title       string `json:"title" validate:"required,max=100"`
-	Description string `json:"description" validate:"required,max=255"`
-	ContentID   string `json:"content_id" validate:"required"`
-	ContentType string `json:"content_type" validate:"required,max=140"`
+	Name        string    `json:"name" validate:"required,max=100"`
+	Description string    `json:"description" validate:"required,max=255"`
+	ContentID   uuid.UUID `json:"content_id" validate:"required"`
+	ContentType string    `json:"content_type" validate:"required,max=140"`
 }
 
 type createActivityResponse struct {
-	UUID        string    `json:"uuid"`
-	Title       string    `json:"title"`
+	UUID        uuid.UUID `json:"uuid"`
+	Name        string    `json:"name"`
 	Description string    `json:"description"`
-	ContentID   string    `json:"content_id"`
+	ContentID   uuid.UUID `json:"content_id"`
 	ContentType string    `json:"content_type"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
@@ -58,19 +60,18 @@ func makeCreateActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 			return nil, err
 		}
 
-		created, err := s.CreateActivity(ctx, &a)
-		if err != nil {
+		if err := s.CreateActivity(ctx, &a); err != nil {
 			return nil, err
 		}
 
 		return createActivityResponse{
-			UUID:        created.UUID,
-			Title:       created.Title,
-			Description: created.Description,
-			ContentID:   created.ContentID,
-			ContentType: created.ContentType,
-			CreatedAt:   created.CreatedAt,
-			UpdatedAt:   created.UpdatedAt,
+			UUID:        a.UUID,
+			Name:        a.Name,
+			Description: a.Description,
+			ContentID:   a.ContentID,
+			ContentType: a.ContentType,
+			CreatedAt:   a.CreatedAt,
+			UpdatedAt:   a.UpdatedAt,
 		}, err
 	}
 }

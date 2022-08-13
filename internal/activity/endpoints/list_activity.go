@@ -7,7 +7,8 @@ import (
 
 	"github.com/go-kit/kit/endpoint"
 	kithttp "github.com/go-kit/kit/transport/http"
-	"github.com/sumelms/microservice-activity/internal/activity/domain"
+
+	"github.com/sumelms/microservice-syllabus/internal/activity/domain"
 )
 
 type listActivityRequest struct {
@@ -43,7 +44,7 @@ func makeListActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 			filters["content_type"] = req.ContentType
 		}
 
-		activities, err := s.ListActivity(ctx, filters)
+		activities, err := s.Activities(ctx)
 		if err != nil {
 			return nil, err
 		}
@@ -53,7 +54,7 @@ func makeListActivityEndpoint(s domain.ServiceInterface) endpoint.Endpoint {
 			a := activities[i]
 			list = append(list, findActivityResponse{
 				UUID:        a.UUID,
-				Title:       a.Title,
+				Name:        a.Name,
 				Description: a.Description,
 				ContentID:   a.ContentID,
 				ContentType: a.ContentType,

@@ -1,4 +1,4 @@
-package activity
+package lesson
 
 import (
 	"github.com/gorilla/mux"
@@ -6,20 +6,20 @@ import (
 
 	"github.com/go-kit/log"
 
-	"github.com/sumelms/microservice-syllabus/internal/activity/database"
-	"github.com/sumelms/microservice-syllabus/internal/activity/domain"
-	"github.com/sumelms/microservice-syllabus/internal/activity/transport"
+	"github.com/sumelms/microservice-syllabus/internal/lesson/database"
+	"github.com/sumelms/microservice-syllabus/internal/lesson/domain"
+	"github.com/sumelms/microservice-syllabus/internal/lesson/transport"
 )
 
 func NewService(db *sqlx.DB, logger log.Logger) (*domain.Service, error) {
-	activity, err := database.NewActivityRepository(db)
+	lesson, err := database.NewLessonRepository(db)
 	if err != nil {
 		return nil, err
 	}
 
 	service, err := domain.NewService(
 		domain.WithLogger(logger),
-		domain.WithActivityRepository(activity))
+		domain.WithLessonRepository(lesson))
 	if err != nil {
 		return nil, err
 	}
